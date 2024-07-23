@@ -1,0 +1,23 @@
+version: "3.8"  # Adjust if using a different Docker Compose version
+
+services:
+  nextjs:
+    build: "Frontend"
+    networks:
+      - myapp
+    ports:
+      - "3000:3000"  # Expose Next.js server port
+    command: ["dumb-init","node","server.js"]
+
+  node:
+    build: "Backend"
+    networks:
+      - myapp
+    ports:
+      - "3001:3001"  # Expose Next.js server port
+    command: ["node", "dist/app.js"]  # Replace with your Node.js application entry point
+
+networks:
+  myapp:
+    driver: bridge
+  
